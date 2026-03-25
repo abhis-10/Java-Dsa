@@ -27,7 +27,7 @@ public class Recursion {
     }
     public static void sumParam(int n , int sum ){
         if(n==0){
-            System.out.println(sum);
+            System.out.println(sum); // paramterized rec prints
             return;
         }
         sumParam(n-1,sum+n); // parameterized recursion
@@ -40,8 +40,8 @@ public class Recursion {
         factorial(n-1,res*n);
     }
     public static int factorialFunc(int n){
-        if(n==0)return 1;
-        return n * factorialFunc(n-1);
+        if(n==0)return 1; // fuctional recu returns
+        return n * factorialFunc(n-1); // functional recurison
     }
     public static void main(String[] args) {
         System.out.print(factorialFunc(3));
