@@ -43,7 +43,6 @@ public class Recursion {
         if(n==0)return 1; // fuctional recu returns
         return n * factorialFunc(n-1); // functional recurison
     }
-
     public static double power(double x, int n){
         if(n == 0) return 1;
 
@@ -58,7 +57,30 @@ public class Recursion {
             return x * half * half;
         }
     }
+
+
+    /*Leetcode Question --> 1922. Count Good Numbers*/
+    static private long M = 1000000007;
+    public static long findPower(long a, long b){
+        if(b == 0) return 1;
+
+        long half = findPower(a,b/2); // binary exponentiation --> ye hi hum lograthemic time dega.
+        long result = (half * half) % M; // modulo M isilye kar rha hu kyuki ans limit ke andar rhe overflow na kre.
+
+        if(b % 2 == 1) return  (result * a) % M;
+        return  result;
+    }
+    public static int countGoodDigits(long n){
+        // step 1 . count the number of even and odd indices
+        long evenCount = (n+1)/2; // exponent (power) for even count;
+        long oddCount = n/2; // expoent (power) for odd count;
+
+        // step 2. need to total find actual no of good digits using below formula
+        long ans = (findPower(5 , evenCount) * findPower(4 , oddCount)) % M;
+        return  (int) ans;
+    }
+    /*QUESTION ENDS HERE*/
     public static void main(String[] args) {
-        System.out.print(power(3.0000,-2));
+        System.out.println(countGoodDigits(3));
     }
 }
