@@ -1,3 +1,7 @@
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Iterator;
+
 public class Recursion {
     public static int SumOfNum(int n){
         if(n==0) return 0;
@@ -57,8 +61,7 @@ public class Recursion {
             return x * half * half;
         }
     }
-
-
+    
     /*Leetcode Question --> 1922. Count Good Numbers*/
     static private long M = 1000000007;
     public static long findPower(long a, long b){
@@ -80,7 +83,40 @@ public class Recursion {
         return  (int) ans;
     }
     /*QUESTION ENDS HERE*/
+
+    /*Question --> Sort the Stack Recursively*/
+    public static Deque<Integer> sortStack(Deque<Integer> stack){
+      if(stack.isEmpty() || stack.size()==1) return stack;
+
+      int topElement = stack.pop();
+      sortStack(stack);
+      insertTopElement(topElement , stack);
+      return stack;
+    }
+    public static void insertTopElement(int top ,  Deque<Integer> stack){
+        if(stack.isEmpty() || stack.peek()<top) {
+            stack.push(top);
+            return;
+        }
+
+        int temp = stack.pop();
+        insertTopElement(top,stack); // ye isiliye kiya kyuki hume top ko stack mai rakhe hue sare elements se compare karana padega
+        stack.push(temp);
+    }
+    
     public static void main(String[] args) {
-        System.out.println(countGoodDigits(3));
+        Deque<Integer> stack = new ArrayDeque<>();
+
+        stack.push(2);
+        stack.push(4);
+        stack.push(1);
+        stack.push(3);
+
+        sortStack(stack);
+
+        Iterator<Integer> it = stack.iterator();
+        while(it.hasNext()){
+            System.out.println(it.next());
+        }
     }
 }
