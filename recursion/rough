@@ -1,0 +1,145 @@
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+        int n = 3;
+        List<String> result = generateParenthesis(n);
+        System.out.println(result);
+    }
+
+    public static List<String> generateParenthesis(int n) {
+        List<String> all = new ArrayList<>();
+
+        // Step 1: generate all possible strings of length 2*n
+        generateAll(2 * n, "", all);
+
+        // Step 2: filter only valid ones
+        List<String> valid = new ArrayList<>();
+        for (String s : all) {
+            if (isValid(s)) {
+                valid.add(s);
+            }
+        }
+
+        return valid;
+    }
+
+    // Generate all combinations
+    public static void generateAll(int length, String curr, List<String> res) {
+        if (curr.length() == length) {
+            res.add(curr);
+            return;
+        }
+
+        generateAll(length, curr + "(", res);
+        generateAll(length, curr + ")", res);
+    }
+
+    // Check if a string is valid
+    public static boolean isValid(String s) {
+        int count = 0;
+
+        for (char c : s.toCharArray()) {
+            if (c == '(') {
+                count++;
+            } else {
+                count--;
+            }
+
+            // Agar kabhi closing zyada ho gaya
+            if (count < 0) {
+                return false;
+            }
+        }
+
+        // End me open == close hona chahiye
+        return count == 0;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+        int n = 2;
+        List<String> res = new ArrayList<>();
+
+        generate(n, 0, 0, "", res);
+        System.out.println(res);
+    }
+
+    public static void generate(int n, int open, int close, String curr, List<String> res) {
+
+        // Base case
+        if (curr.length() == 2 * n) {
+            res.add(curr);
+            return;
+        }
+
+        // Add '(' if we still can
+        if (open < n) {
+            generate(n, open + 1, close, curr + "(", res);
+        }
+
+        // Add ')' only if valid
+        if (close < open) {
+            generate(n, open, close + 1, curr + ")", res);
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
