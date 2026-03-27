@@ -103,7 +103,32 @@ public class Recursion {
         insertTopElement(top,stack); // ye isiliye kiya kyuki hume top ko stack mai rakhe hue sare elements se compare karana padega
         stack.push(temp);
     }
-    
+    /*QUESTION ENDS HERE*/
+
+
+    /*Question --> Reverse the Stack Recursively*/
+    public static Deque<Integer> reverseStack(Deque<Integer> stack){
+        if(stack.isEmpty() || stack.size()==1){
+            return stack;
+        }
+
+        int top = stack.pop();
+        reverseStack(stack);
+        insertReverseOrder(top,stack);
+        return stack;
+    }
+    public static void insertReverseOrder(int top , Deque<Integer> stack){
+        if(stack.isEmpty()) {
+          stack.push(top);
+          return;
+        }
+        int temp = stack.pop();
+        insertReverseOrder(top,stack);
+        stack.push(temp);
+    }
+    /*QUESTION END HERE*/
+
+
     public static void main(String[] args) {
         Deque<Integer> stack = new ArrayDeque<>();
 
@@ -112,11 +137,18 @@ public class Recursion {
         stack.push(1);
         stack.push(3);
 
-        sortStack(stack);
-
         Iterator<Integer> it = stack.iterator();
         while(it.hasNext()){
-            System.out.println(it.next());
+            System.out.print(it.next()+ " ");
+        }
+
+//        sortStack(stack);
+          reverseStack(stack);
+        System.out.println();
+
+        Iterator<Integer> its = stack.iterator();
+        while(its.hasNext()){
+            System.out.print(its.next()+ " ");
         }
     }
 }
