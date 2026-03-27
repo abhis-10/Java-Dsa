@@ -1,6 +1,6 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Iterator;
+package recursion.src;
+
+import java.util.*;
 
 public class Recursion {
     public static int SumOfNum(int n){
@@ -128,27 +128,102 @@ public class Recursion {
     }
     /*QUESTION END HERE*/
 
+    /*Question --> Generate all binary Strings*/
+    public static void generate(int n, String s, List<String> res){
+        if(s.length()==n){
+            res.add(s);
+            return;
+        }
+
+        generate(n,s+"0",res);
+
+        if(s.isEmpty() || s.charAt(s.length() -1) != '1'){
+            generate(n,s+"1",res);
+        }
+    }
+    /*QUESTION ENDS HERE*/
+
+
+    /*Leetcode Question --> 22. Generate Paranthesis */
+    // Brute force approach
+    public static void generateParanthesis(int n, String s, List<String> res){
+        if(s.length() == 2*n) { // yha 2n isiliye kiya becoz har position ke liye 2 option hai ( and )
+            res.add(s);
+            return;
+        }
+        generateParanthesis(n,s+"(",res);
+        generateParanthesis(n,s+")",res);
+    }
+    public static boolean isValidString(String s){
+        int count = 0;
+        int n = s.length();
+
+        for(int i=0;i<n;i++){
+            if(s.charAt(i) == '(') {
+                count++;
+            }else{
+                count--;
+            }
+        if(count < 0){
+         return false;
+        }
+        }
+        return count==0;
+    }
+    /*BRUTE FORCE ENDS HERE*/
+
+    //Optimized approach
+    public static void generateParenthesiss(int n , int open, int close, String s, List<String> res){
+        if(s.length()==2*n){
+            res.add(s);
+            return;
+        }
+
+        if(open < n){
+            generateParenthesiss(n,open+1,close,s+"(",res);
+        }
+        if(close < open){
+            generateParenthesiss(n,open, close+1,s+")",res);
+        }
+    }
+    /*OPTIMIZED APPROACH ENDS HERE*/
 
     public static void main(String[] args) {
-        Deque<Integer> stack = new ArrayDeque<>();
 
-        stack.push(2);
-        stack.push(4);
-        stack.push(1);
-        stack.push(3);
-
-        Iterator<Integer> it = stack.iterator();
-        while(it.hasNext()){
-            System.out.print(it.next()+ " ");
+        List<String> res = new ArrayList<>();
+        int n = 2;
+//        generate(n,"",res);
+//        generateParanthesis(n,"",res);
+        generateParenthesiss(n,0,0,"",res);
+//        for(String s : res){
+//          if(isValidString(s)){
+//              System.out.println(s+" ");
+//          }else{
+//              continue;
+//          }
+//        }
+        for(String s:res){
+            System.out.println(s+" ");
         }
-
+//        Deque<Integer> stack = new ArrayDeque<>();
+//
+//        stack.push(2);
+//        stack.push(4);
+//        stack.push(1);
+//        stack.push(3);
+//
+//        Iterator<Integer> it = stack.iterator();
+//        while(it.hasNext()){
+//            System.out.print(it.next()+ " ");
+//        }
+//
 //        sortStack(stack);
-          reverseStack(stack);
-        System.out.println();
-
-        Iterator<Integer> its = stack.iterator();
-        while(its.hasNext()){
-            System.out.print(its.next()+ " ");
-        }
+//          reverseStack(stack);
+//        System.out.println();
+//
+//        Iterator<Integer> its = stack.iterator();
+//        while(its.hasNext()){
+//            System.out.print(its.next()+ " ");
+//        }
     }
 }
