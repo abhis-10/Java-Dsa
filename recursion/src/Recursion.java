@@ -188,13 +188,56 @@ public class Recursion {
     }
     /*OPTIMIZED APPROACH ENDS HERE*/
 
+    /*Question --> Print Possible subsequence of a string*/
+    //BRUTE FORCE APPROACH
+//    public static void subsequence(String s){
+//        int n = s.length();
+//
+//       for(int i = 0; i < n; i++){
+//           for(int j = i + 1; j < n; j++){
+//               for(int q = j + 1; q < n; q++){
+//                    System.out.println("" + s.charAt(i) + s.charAt(j) + s.charAt(q));
+//               }
+//           }
+//      }
+//    }
+
+    //RECURSION APPROACH
+    public static void subsequence(String s,int i , String curr, List<String> res){
+       if(i == s.length()){
+           res.add(curr);
+           return;
+       }
+
+       subsequence(s,i+1,curr+s.charAt(i),res);
+       subsequence(s,i+1,curr,res);
+    }
+
     public static void main(String[] args) {
 
         List<String> res = new ArrayList<>();
-        int n = 2;
+        subsequence("abc",0,"",res);
+        for (String x: res){
+            System.out.print(x+" ");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        List<String> res = new ArrayList<>();
+//        int n = 2;
 //        generate(n,"",res);
 //        generateParanthesis(n,"",res);
-        generateParenthesiss(n,0,0,"",res);
+//        generateParenthesiss(n,0,0,"",res);
 //        for(String s : res){
 //          if(isValidString(s)){
 //              System.out.println(s+" ");
@@ -202,9 +245,9 @@ public class Recursion {
 //              continue;
 //          }
 //        }
-        for(String s:res){
-            System.out.println(s+" ");
-        }
+//        for(String s:res){
+//            System.out.println(s+" ");
+//        }
 //        Deque<Integer> stack = new ArrayDeque<>();
 //
 //        stack.push(2);
