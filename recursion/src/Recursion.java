@@ -189,19 +189,18 @@ public class Recursion {
     /*OPTIMIZED APPROACH ENDS HERE*/
 
     /*Question --> Print Possible subsequence of a string*/
-    //BRUTE FORCE APPROACH
-//    public static void subsequence(String s){
-//        int n = s.length();
-//
-//       for(int i = 0; i < n; i++){
-//           for(int j = i + 1; j < n; j++){
-//               for(int q = j + 1; q < n; q++){
-//                    System.out.println("" + s.charAt(i) + s.charAt(j) + s.charAt(q));
-//               }
-//           }
-//      }
-//    }
+//    BRUTE FORCE APPROACH
+    public static void subsequence(String s){
+        int n = s.length();
 
+       for(int i = 0; i < n; i++){
+           for(int j = i + 1; j < n; j++){
+               for(int q = j + 1; q < n; q++){
+                    System.out.println("" + s.charAt(i) + s.charAt(j) + s.charAt(q));
+               }
+           }
+      }
+    }
     //RECURSION APPROACH
     public static void subsequence(String s,int i , String curr, List<String> res){
        if(i == s.length()){
@@ -212,16 +211,70 @@ public class Recursion {
        subsequence(s,i+1,curr+s.charAt(i),res);
        subsequence(s,i+1,curr,res);
     }
+    /*QUESTION ENDS HERE*/
+
+    /*Question --> Count all subsequences with sum K*/
+    public static int countSubSequence(int[] nums, int i, int sum, int k){
+        if(i==nums.length){
+            if(sum==k){
+                return 1;
+            }else{
+                return 0;
+            }
+        }
+
+        int take = countSubSequence(nums,i+1,sum+nums[i],k); // including the current element
+        int notTake = countSubSequence(nums,i+1,sum,k); // exlcuding the current element
+        return take+notTake;
+    }
+    /*QUESTION ENDS HERE*/
+
+    /*Question --> Check if there exists a subsequence with sum K*/
+    public static boolean existSubSequence(int[] arr, int i, int sum , int k){
+        if(sum == k) return true;
+        if(i==arr.length) return false;
+
+        if(existSubSequence(arr,i+1,sum+arr[i],k)) return true;
+        if(existSubSequence(arr,i+1,sum,k)) return true;
+
+        return false;
+    }
+    /*QUESTION ENDS HERE*/
+
+    /*Question --> LeetCode question no. --> 39 Combination Sum*/
+    public static List<List<Integer>> combinationSum(int[] arr, int target){
+        List<List<Integer>> res = new ArrayList<>();
+        generateTarget(arr,0,0, target ,new ArrayList<>(),res);
+        return  res;
+    }
+    public static void generateTarget(int[] arr, int i, int sum, int target, List<Integer> curr, List<List<Integer>> res){
+       if(sum > target){
+           return;
+       }
+       if(sum==target){
+           res.add(new ArrayList<>(curr));
+           return;
+       }
+       for(int j=i;j<arr.length;j++){
+           curr.add(arr[j]);
+           generateTarget(arr,j,sum+arr[j],target,curr,res);
+           curr.remove(curr.size()-1);
+       }
+    }
+    /*QUESTION ENDS HERE*/
 
     public static void main(String[] args) {
 
-        List<String> res = new ArrayList<>();
-        subsequence("abc",0,"",res);
-        for (String x: res){
-            System.out.print(x+" ");
-        }
+//        List<String> res = new ArrayList<>();
+//        subsequence("abc",0,"",res);
+//        for (String x: res){
+//            System.out.print(x+" ");
+//        }
 
 
+        int[] nums = {1,1,1,1,1};
+        int k = 10;
+        System.out.println( existSubSequence(nums,0,0,k));
 
 
 
