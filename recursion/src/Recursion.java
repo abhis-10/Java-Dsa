@@ -276,16 +276,6 @@ public class Recursion {
         int k = 10;
         System.out.println( existSubSequence(nums,0,0,k));
 
-
-
-
-
-
-
-
-
-
-
 //        List<String> res = new ArrayList<>();
 //        int n = 2;
 //        generate(n,"",res);
