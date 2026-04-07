@@ -263,6 +263,31 @@ public class Recursion {
     }
     /*QUESTION ENDS HERE*/
 
+    /* Question --> LeetCode question no . 40--> */
+    public static void generateCombination(int[] candidate, int id, int sum, int target, List<Integer> curr, List<List<Integer>> res){
+        if(sum > target) return ;
+
+        if(sum == target){
+            res.add(new ArrayList<>(curr));
+            return;
+        }
+
+        for(int i=id;i<candidate.length;i++){
+            if(i>id && candidate[i]==candidate[i-1]) continue;
+            curr.add(candidate[i]);
+            generateCombination(candidate,i+1,sum+candidate[i],target,curr,res);
+            curr.remove(curr.size()-1);
+        }
+    }
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> list = new ArrayList<>();
+        Arrays.sort(candidates);
+        generateCombination(candidates,0,0,target,new ArrayList<>(),list);
+        return list;
+    }
+    // QUESTION ENDS HERE
+
+
     public static void main(String[] args) {
 
 //        List<String> res = new ArrayList<>();
