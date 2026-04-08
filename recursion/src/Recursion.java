@@ -288,7 +288,30 @@ public class Recursion {
     // QUESTION ENDS HERE
 
 
+    /*Question --> Sum of all subsets*/
+    public static void printSum(int[] arr,int id,int sum, List<Integer> res){
+        int n = arr.length;
+
+        if(id == n){
+            res.add(sum);
+            return;
+        }
+
+        printSum(arr,id+1,sum+arr[id],res);
+        printSum(arr,id+1,sum,res);
+    }
+
+
     public static void main(String[] args) {
+
+        int[] arr = {3,1,2};
+        List<Integer> res = new ArrayList<>();
+
+        printSum(arr,0,0,res);
+        Collections.sort(res);
+        for(Integer x: res){
+            System.out.print(x+" ");
+        }
 
 //        List<String> res = new ArrayList<>();
 //        subsequence("abc",0,"",res);
