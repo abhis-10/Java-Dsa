@@ -300,16 +300,33 @@ public class Recursion {
         printSum(arr,id+1,sum+arr[id],res);
         printSum(arr,id+1,sum,res);
     }
+    // QUESTION ENDS HERE
 
+    public static void printSubSum(int[] arr, int id, List<Integer> curr, List<List<Integer>> res){
+        int n = arr.length;
+        res.add(new ArrayList<>(curr));
+
+        for(int i=id;i<n;i++){
+            if(i>id && arr[i] == arr[i-1]) continue;
+
+            curr.add(arr[i]);
+            printSubSum(arr,i+1,curr,res);
+            curr.remove(curr.size()-1);
+        }
+    }
+    //  QUESTION ENDS HERE
 
     public static void main(String[] args) {
 
         int[] arr = {3,1,2};
-        List<Integer> res = new ArrayList<>();
+        Arrays.sort(arr);
+//        List<Integer> res = new ArrayList<>();
+        List<List<Integer>> res = new ArrayList<>();
 
-        printSum(arr,0,0,res);
-        Collections.sort(res);
-        for(Integer x: res){
+//        printSum(arr,0,0,res);
+        printSubSum(arr,0,new ArrayList<>(),res);
+//        Collections.sort(res);
+        for(List<Integer> x: res){
             System.out.print(x+" ");
         }
 
@@ -320,9 +337,9 @@ public class Recursion {
 //        }
 
 
-        int[] nums = {1,1,1,1,1};
-        int k = 10;
-        System.out.println( existSubSequence(nums,0,0,k));
+//        int[] nums = {1,1,1,1,1};
+//        int k = 10;
+//        System.out.println( existSubSequence(nums,0,0,k));
 
 //        List<String> res = new ArrayList<>();
 //        int n = 2;
