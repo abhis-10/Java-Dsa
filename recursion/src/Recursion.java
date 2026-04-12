@@ -302,6 +302,7 @@ public class Recursion {
     }
     // QUESTION ENDS HERE
 
+    /*Question --> print the sum of all the subset*/
     public static void printSubSum(int[] arr, int id, List<Integer> curr, List<List<Integer>> res){
         int n = arr.length;
         res.add(new ArrayList<>(curr));
@@ -315,6 +316,69 @@ public class Recursion {
         }
     }
     //  QUESTION ENDS HERE
+
+    /*Leetcode Question No.17 Letter Combinations of a Phone Number*/
+    // public List<String> letterCombinations(String digits) {
+
+    //  HashMap<Character,String> digit = new HashMap<>();
+    //  digit.put('2', "abc");
+    //  digit.put('3', "def");
+    //  digit.put('4', "ghi");
+    //  digit.put('5', "jkl");
+    //  digit.put('6', "mno");
+    //  digit.put('7', "pqrs");
+    //  digit.put('8', "tuv");
+    //  digit.put('9', "wxyz");
+
+    //  List<String> res = new ArrayList<>();
+    //  res.add("");
+
+    //  for(int i=0;i<digits.length();i++){
+    //     char ch = digits.charAt(i);
+    //     String s = digit.get(ch);
+
+    //     List<String> temp = new ArrayList<>();
+
+    //     for(String prev: res){
+    //         for(int j=0;j<s.length();j++){
+    //             temp.add(prev+s.charAt(j));
+    //         }
+    //     }
+    //         res=temp;
+    //  }
+    //  return res;
+    // }
+    public void combinationHelper(String s, int id, String curr, List<String>res){
+        if(id == s.length()){
+            res.add(curr);
+            return;
+        }
+
+        HashMap<Character, String> digit = new HashMap<>();
+        digit.put('2', "abc");
+        digit.put('3', "def");
+        digit.put('4', "ghi");
+        digit.put('5', "jkl");
+        digit.put('6', "mno");
+        digit.put('7', "pqrs");
+        digit.put('8', "tuv");
+        digit.put('9', "wxyz");
+
+        char c = s.charAt(id);
+        String x = digit.get(c);
+
+        for(int i=0;i<x.length();i++){
+            combinationHelper(s,id+1,curr+x.charAt(i),res);
+        }
+
+    }
+    // QUESTION ENDS HERE
+    public List<String> letterCombinations(String digits){
+        List<String> res = new ArrayList<>();
+        combinationHelper(digits,0,"",res);
+        return res;
+
+    }
 
     public static void main(String[] args) {
 
