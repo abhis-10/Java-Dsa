@@ -27,6 +27,25 @@ public class LinkedList {
         }
         head.next = null;
     }
+    // Question--> Given the head of a linked list, print the length of the linked list.
+    public static int lengthOfList(Node head){
+        int count = 0;
+        while(head!=null){
+            count++;
+            head = head.next;
+        }
+        return count;
+    }
+    // Question -->Search an element in a Linked List
+    public static boolean searchInLinkedList(Node head,int val){
+        while(head!=null){
+            if(head.data == val){
+                return true;
+            }
+            head = head.next;
+        }
+        return false;
+    }
     public static void main(String[] args) {
         Node n = new Node(50);
         Node n3 = new Node(30,n);
@@ -47,7 +66,7 @@ public class LinkedList {
             newHeadNode = newHeadNode.next;
         }*/
 
-        System.out.println("LinkedList before deleting last node");
+        /*System.out.println("LinkedList before deleting last node");
 
         while(head!=null){
             System.out.print(head.data+" ");
@@ -62,7 +81,13 @@ public class LinkedList {
         while(head!=null){
             System.out.print(head.data+" ");
             head = head.next;
-        }
+        }*/
+
+//        int ans = lengthOfList(head);
+//        System.out.println("length of the linked list is :" + ans);
+
+        System.out.println(searchInLinkedList(n1,51));
+
 
     }
 }
