@@ -46,6 +46,32 @@ public class LinkedList {
         }
         return false;
     }
+    //Question --> Reverse a linked list
+    public static Node reverseLinkedList(Node head){
+        Node curr = head;
+        Node prev = null;
+
+        while(curr!=null){
+            Node next = curr.next;
+            curr.next = prev;// this will connect current node with prev linked list that is getting generated.
+            prev = curr;
+            curr = next; // this will move my curr forward normally.
+        }
+        return  prev;
+    }
+
+    //Qustion--> Find middle of linked list
+    public static Node middleOfLinkedList(Node head){
+       Node i = head;
+       Node j = head.next;
+
+       while(j != null && j.next != null){
+           i = i.next;
+           j = j.next.next;
+       }
+       return i;
+
+    }
     public static void main(String[] args) {
         Node n = new Node(50);
         Node n3 = new Node(30,n);
@@ -86,8 +112,15 @@ public class LinkedList {
 //        int ans = lengthOfList(head);
 //        System.out.println("length of the linked list is :" + ans);
 
-        System.out.println(searchInLinkedList(n1,51));
+//        System.out.println(searchInLinkedList(n1,51));
 
+//        Node prev = reverseLinkedList(n1);
+          Node mid = middleOfLinkedList(n1);
+        System.out.println(mid.data);
+//        while(prev!=null){
+//            System.out.print(prev.data+" ");
+//            prev=prev.next;
+//        }
 
     }
 }
