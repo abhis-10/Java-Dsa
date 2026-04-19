@@ -1,5 +1,7 @@
 package linkedlist;
 
+import java.util.HashSet;
+
 class Node {
     int data;
     Node next;
@@ -63,7 +65,7 @@ public class LinkedList {
     //Qustion--> Find middle of linked list
     public static Node middleOfLinkedList(Node head){
        Node i = head;
-       Node j = head.next;
+       Node j = head;
 
        while(j != null && j.next != null){
            i = i.next;
@@ -72,13 +74,55 @@ public class LinkedList {
        return i;
 
     }
+    //Question --> Reverse a singly linked list using recursion
+    public static Node reverseLinkedListRecursively(Node head){
+        if(head == null || head.next == null){
+            return head;
+        }
+
+        Node newNode = reverseLinkedListRecursively(head.next);
+
+        head.next.next = head;
+        head.next = null;
+
+        return newNode;
+    }
+    //Question --> Detect a cycle in a linked list
+    public static boolean detectCycle(Node head){
+        HashSet<Node> set = new HashSet<>();
+
+        while(head!=null){
+            if(set.contains(head)){
+                return true;
+            }else{
+                set.add(head);
+            }
+            head = head.next;
+        }
+        return false;
+    }
+    // //Question --> Detect a cycle in a linked list optimal approach
+    public static boolean detectCycle2(Node head){
+        Node slow = head;
+        Node fast = head;
+
+        while(fast!=null && fast.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if(slow == fast){
+                return true;
+            }
+        }
+        return false;
+    }
     public static void main(String[] args) {
-        Node n = new Node(50);
-        Node n3 = new Node(30,n);
+//        Node n = new Node(50);
+        Node n3 = new Node(30,null);
         Node n2 = new Node(20,n3);
         Node n1 = new Node(10,n2);
 
-        Node head = n1; // this is how we make an node a head node
+        Node head = n1; // this is how we make a node a head node
 
         /*while(head!=null){ // loop for printing the linkedlist from head to tail. // Basic traversing
             System.out.print(head.data+" ");
@@ -115,12 +159,24 @@ public class LinkedList {
 //        System.out.println(searchInLinkedList(n1,51));
 
 //        Node prev = reverseLinkedList(n1);
-          Node mid = middleOfLinkedList(n1);
-        System.out.println(mid.data);
+//          Node mid = middleOfLinkedList(n1);
+//        System.out.println(mid.data);
 //        while(prev!=null){
 //            System.out.print(prev.data+" ");
 //            prev=prev.next;
 //        }
 
+//        deleteLastNode(head);
+//        while(head!=null){
+//            System.out.print(head.data+" ");
+//            head = head.next;
+//        }
+
+        Node lastNode = reverseLinkedListRecursively(head);
+
+        while(lastNode!=null){
+            System.out.print(lastNode.data+" ");
+            lastNode = lastNode.next;
+        }
     }
 }
