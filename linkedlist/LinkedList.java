@@ -1,5 +1,6 @@
 package linkedlist;
 
+import java.util.HashMap;
 import java.util.HashSet;
 
 class Node {
@@ -116,6 +117,52 @@ public class LinkedList {
         }
         return false;
     }
+    // Question --> Length of loop in linked List
+    public static int lengthOfLoop(Node head){
+        int len = 1;
+        HashSet<Node> set = new HashSet<>();
+
+        while(head!=null){
+            if(set.contains(head)){
+                Node slow = head;
+                Node fast = head.next;
+
+                while(fast!=slow){
+                    len++;
+                    fast = fast.next;
+                }
+                return len;
+            }
+            set.add(head);
+            head = head.next;
+        }
+        return 0;
+    }
+
+    //Question --> Length of loop in linked list optimal soln
+    public static int lengthOfLoops(Node head){
+        Node slow = head;
+        Node fast = head;
+        int len = 1;
+
+        while(fast!=null && fast.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if(slow == fast){
+            Node temp = slow.next;
+
+            while(temp!= slow){
+                len++;
+                temp=temp.next;
+            }
+                return len;
+            }
+
+        }
+            return 0;
+    }
+
     public static void main(String[] args) {
 //        Node n = new Node(50);
         Node n3 = new Node(30,null);
