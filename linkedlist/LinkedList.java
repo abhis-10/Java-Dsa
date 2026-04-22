@@ -163,11 +163,49 @@ public class LinkedList {
             return 0;
     }
 
+    //Question --> Sort the LinkedList using an optimal approach
+    public static Node sortLL(Node head){
+        if(head==null || head.next==null) return head;
+
+        Node slow = head;
+        Node fast = head.next;
+
+        while(fast!=null && fast.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        Node rightHead = slow.next;
+        slow.next = null;
+
+        Node left = sortLL(head);
+        Node right = sortLL(rightHead);
+
+        return merge(left,right);
+    }
+    public static Node merge(Node left , Node right){
+        Node dummy = new Node(-1);
+        Node tail = dummy;
+
+        while(left!=null && right!=null){
+            if(left.data <= right.data){
+                tail.next = left;
+                left = left.next;
+            }else{
+                tail.next = right;
+                right = right.next;
+            }
+            tail = tail.next;
+        }
+        if(left!=null) tail.next = left;
+        if(right!=null) tail.next = right;
+
+        return dummy.next;
+    }
     public static void main(String[] args) {
-//        Node n = new Node(50);
-        Node n3 = new Node(30,null);
-        Node n2 = new Node(20,n3);
-        Node n1 = new Node(10,n2);
+        Node n = new Node(1);
+        Node n3 = new Node(7,n);
+        Node n2 = new Node(2,n3);
+        Node n1 = new Node(9,n2);
 
         Node head = n1; // this is how we make a node a head node
 
@@ -219,11 +257,18 @@ public class LinkedList {
 //            head = head.next;
 //        }
 
-        Node lastNode = reverseLinkedListRecursively(head);
+//        Node lastNode = reverseLinkedListRecursively(head);
+//
+//        while(lastNode!=null){
+//            System.out.print(lastNode.data+" ");
+//            lastNode = lastNode.next;
+//        }
 
-        while(lastNode!=null){
-            System.out.print(lastNode.data+" ");
-            lastNode = lastNode.next;
+        Node ans = sortLL(head);
+
+        while(ans!=null){
+            System.out.print(ans.data+" ");
+            ans=ans.next;
         }
     }
 }
