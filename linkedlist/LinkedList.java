@@ -165,7 +165,7 @@ public class LinkedList {
 
     //Question --> Sort the LinkedList using an optimal approach
     public static Node sortLL(Node head){
-        if(head==null || head.next==null) return head;
+        if(head==null || head.next==null) return head; // edge case
 
         Node slow = head;
         Node fast = head.next;
