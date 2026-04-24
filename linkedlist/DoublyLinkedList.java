@@ -134,11 +134,82 @@ public class DoublyLinkedList {
         }
         return  allArray;
     }
+    //Question --> Remove all the occurences of the duplicates in the DLL
+    public static DoublyNode removeDuplicates1(DoublyNode head) { // brute force approach
+        DoublyNode curr = head;
+        DoublyNode temp = head.next;
+
+        while (curr != null) {
+            temp = curr.next;
+            boolean isDuplicate = false;
+
+            while (temp != null) {
+                if(curr.data == temp.data){
+                   isDuplicate = true;
+                   break;
+                }
+                   temp = temp.next;
+            }
+
+            if(isDuplicate){
+               DoublyNode runner = head;
+
+               while(runner!=null){
+                  DoublyNode nextNode =  runner.next;
+                   if(runner.data == curr.data){
+                    if(runner.prev!=null){
+                        runner.prev.next = runner.next;
+                    }else{
+                        head = runner.next;
+                    }
+                    if(runner.next!=null){
+                        runner.next.prev = runner.prev;
+                    }
+                   }
+                    runner = nextNode;
+               }
+                   curr = head;
+            }
+
+            else{
+            curr = curr.next;
+            }
+        }
+        return head;
+    }
+    public static DoublyNode removeDuplicates2(DoublyNode head){ // optimal approach
+        DoublyNode curr = head;
+
+        while(curr!=null){
+            DoublyNode nextNode = curr.next;
+
+            while(nextNode!=null && nextNode.data == curr.data){
+                nextNode = nextNode.next;
+            }
+
+            if(curr.next!=nextNode){ // means duplicates values skip ho chuki hai aur ptr agge move ho gya hai.
+
+                if(curr.prev!=null){
+                    curr.prev.next = nextNode;
+                }else{
+                    head = nextNode;
+                }
+
+                if(nextNode.next!=null){
+                    nextNode.prev = curr.prev;
+                }
+                curr = nextNode;
+            }else{
+                curr=curr.next;
+            }
+        }
+        return head;
+    }
     public static void main(String[] args) {
         DoublyNode db4 = new DoublyNode(5,null,null);
-        DoublyNode db3 = new DoublyNode(4,db4,null);
+        DoublyNode db3 = new DoublyNode(3,db4,null);
         DoublyNode db2 = new DoublyNode(3,db3,null);
-        DoublyNode db1 = new DoublyNode(2,db2,null);
+        DoublyNode db1 = new DoublyNode(3,db2,null);
         DoublyNode db = new DoublyNode(1,db1,null);
 
         db1.prev = db;
@@ -162,10 +233,17 @@ public class DoublyLinkedList {
 
 
 
-        List<List<Integer>> finalArr = findPair(head,7);
+//        List<List<Integer>> finalArr = findPair(head,7);
+//
+//        for (List<Integer> x: finalArr){
+//            System.out.print(x+" ");
+//        }
 
-        for (List<Integer> x: finalArr){
-            System.out.print(x+" ");
+        DoublyNode ans = removeDuplicates2(head);
+
+        while(ans!=null){
+            System.out.print(ans.data+" ");
+            ans = ans.next;
         }
     }
 }

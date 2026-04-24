@@ -201,6 +201,62 @@ public class LinkedList {
 
         return dummy.next;
     }
+
+    // Question --> Rotate a LL using brute force approach
+    public static Node rotateLL(Node head , int k){
+        Node curr = head;
+        int len = 0;
+        Node temp = head;
+        Node secondLast = head;
+        if(head == null || head.next == null || k == 0){
+            return head;
+        }
+        while(temp!=null){
+            len++;
+            temp = temp.next;
+        }
+        k  = k%len;
+        while(k!=0){
+            curr = head;
+           while(curr.next!=null){
+               if(curr.next.next==null){
+                   secondLast = curr;
+               }
+               curr = curr.next;
+           }
+           Node temps = curr;
+           secondLast.next = null;
+           temps.next = head;
+           head = temps;
+           k--;
+        }
+        return  head;
+    }
+    public static Node rotateLL1(Node head , int k){
+        Node curr = head;
+        Node temp = head;
+        int len = 1;
+
+        if(head == null || head.next == null || k == 0){
+            return head;
+        }
+        while(temp.next!=null){
+            len++;
+            temp = temp.next;
+        }
+        temp.next = head;
+        k = k % len;
+        int correctHeadPost = len - k - 1; // isse hume new head ke ek peeche wala node mil jayega , basically new tail mil jayega
+        Node ptr = head;
+
+        while(correctHeadPost != 0){
+            ptr = ptr.next;
+            correctHeadPost--;
+        }
+        head = ptr.next;
+        ptr.next = null;
+        return head;
+    }
     public static void main(String[] args) {
         Node n = new Node(1);
         Node n3 = new Node(7,n);
@@ -264,11 +320,19 @@ public class LinkedList {
 //            lastNode = lastNode.next;
 //        }
 
-        Node ans = sortLL(head);
+//        Node ans = sortLL(head);
+//
+//        while(ans!=null){
+//            System.out.print(ans.data+" ");
+//            ans=ans.next;
+//        }
+
+        Node ans = rotateLL1(head,2);
+
 
         while(ans!=null){
             System.out.print(ans.data+" ");
-            ans=ans.next;
+            ans = ans.next;
         }
     }
 }
