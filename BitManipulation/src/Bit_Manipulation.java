@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Bit_Manipulation {
     // Leetcode Question No 2220  --> Minimum Bit Flips to Convert Number
     public int minBitFlips(int start, int goal) {
@@ -48,6 +50,26 @@ public class Bit_Manipulation {
     public boolean isPowerOfTwoOptimal(int n){
         return n > 0 && (n & (n-1))==0;
     }  // n & (n - 1) → rightmost 1 ko uda deta hai
+
+    // LeetCode Question No -78 subset
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        int n = nums.length;
+        int total = 1 << n;
+
+        for (int num = 0; num < total; num++) {
+            List<Integer> curr = new ArrayList<>();
+
+            for (int i = 0; i < n; i++) {
+                if ((num & (1 << i)) != 0) {
+                    curr.add(nums[i]);
+                }
+            }
+            ans.add(curr);
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
 
     }
